@@ -110,9 +110,16 @@ def spotify_dl():
         songs = fetch_tracks(sp, playlist_id, current_user_id)
     else:
         songs = fetch_tracks(sp, args.playlist, current_user_id)
+    #Download songs from previous session
+    if args.download is True:
+        source = open(os.path.join(download_directory, 'songs.txt'), 'rb').read()
+        download_songs(json.loads(source), download_directory, args.format_str, args.skip_mp3)
     url = []
     for song, artist in songs.items():
-        link = fetch_youtube_url(song + ' - ' + artist)
+        try:
+            link = fetch_youtube_url(song + ' - ' + artist)
+        except:
+            break
         if link:
             url.append((link, song, artist))
 

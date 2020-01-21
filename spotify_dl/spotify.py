@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 import re
 import os
+import json
 
 import spotipy.util as util
 import youtube_dl
@@ -64,8 +65,8 @@ def save_songs_to_file(songs, directory):
        to be downloaded from youtube-dl
     """
 
-    with open(os.path.join(directory, 'songs.txt'), 'w', encoding="utf-8") as f:
-        f.write(' '.join(str(songs)))
+    with open(os.path.join(directory, 'songs.txt'), 'wb') as f:
+        f.write(json.dumps(songs))
     f.close()
 
 
